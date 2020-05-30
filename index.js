@@ -38,11 +38,12 @@ app.get('/', (req, res) => {
 
 app.get('/guardian', async (req, res) => {
     let data = await guardian();
-    let headline = tenHeadlines()
-    // let headline2 = data.response.results[1].webTitle;
-    // let link = data.response.results[0].webUrl;
-    // let link2 = data.response.results[1].webUrl;
-    res.render('guardian', {headline});
+    // let headline = tenHeadlines()
+    let headline = data.response.results[0].webTitle
+    let headline2 = data.response.results[1].webTitle;
+    let link = data.response.results[0].webUrl;
+    let link2 = data.response.results[1].webUrl;
+    res.render('guardian', {headline, link, headline2, link2});
 
 })
 
