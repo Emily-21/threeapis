@@ -1,0 +1,44 @@
+* {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+h1{
+    font-family: Georgia;
+    font-size: 40px;
+    color:rgb(121, 121, 204);
+    padding:20px;
+
+} 
+h2{
+    font-family: Georgia;
+    font-size: 30px;
+    color:rgb(121, 121, 204);
+    padding:10px;
+
+}
+
+nav ul{
+        list-style-type: none;
+}
+
+nav li{
+    display: inline-block;
+    padding:20px;
+    font-size: 20px;
+    font-family: Georgia;
+
+    
+}nav a{
+    text-decoration: none;
+    font-family: Georgia;
+    color: blanchedalmond;
+}
+nav a:hover{
+    color:rgb(121, 121, 204);
+}
+
+nav{
+background-color: rgb(51, 50, 50);
+}
