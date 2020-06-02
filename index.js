@@ -6,21 +6,31 @@ require('dotenv').config();
 
 
 const guardian = require('./lib/headline')
-
-let myArray = [];
+const popMovie = require('./lib/movies')
 
 const tenHeadlines = async() => {
+    let myArray = [];
     let data = await guardian();
     for (let i = 0; i < 10 ; i++) {
-    myArray.push(data.response.results[i].webTitle);
-}
-    return myArray;
-}
+    myArray.push({
+       title: data.response.results[i].webTitle,
+        url: data.response.results[i].webUrl,
+    })
+ } 
+ return myArray;
+ }
 
-tenHeadlines()
-console.log(myArray);
+
+ const RanNum = () => {
+     let num = Math.ceil(Math.random() * 18)
+     console.log(num)
+     return num;
+ }
+ 
+ 
 
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 
 app.engine('.hbs', hbs({
@@ -37,16 +47,20 @@ app.get('/', (req, res) => {
 
 
 app.get('/guardian', async (req, res) => {
-    let data = await guardian();
-    // let headline = tenHeadlines()
-    let headline = data.response.results[0].webTitle
-    let headline2 = data.response.results[1].webTitle;
-    let link = data.response.results[0].webUrl;
-    let link2 = data.response.results[1].webUrl;
-    res.render('guardian', {headline, link, headline2, link2});
+
+    let data = await tenHeadlines();
+    res.render('guardian', {data});
 
 })
 
+app.get('/movies', async (req, res) => {
+    let i = RanNum();
+    let data = await popMovie();
+    let movieTitle = data.results[i].title;
+   let release = data.results[i].release_date;
+   let overview = data.results[i].overview;
+    res.render('movies', {movieTitle, release, overview});
+})
 
 app.listen(3000, () => {
     console.log('server is running on port 3000');
