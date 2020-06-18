@@ -2,7 +2,9 @@ const express = require('express');
 const hbs = require('express-handlebars');
 const path = require('path');
 const app = express();
+const bodyParser = require('body-parser'); //for forms
 require('dotenv').config();
+
 
 
 const guardian = require('./lib/headline')
@@ -27,8 +29,9 @@ const tenHeadlines = async() => {
      return num;
  }
  
- 
-
+ app.use(bodyParser.urlencoded({extended:false}));
+ //ignore data types and make everything a string
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
@@ -53,6 +56,7 @@ app.get('/guardian', async (req, res) => {
 
 })
 
+
 app.get('/movies', async (req, res) => {
     let i = RanNum();
     let data = await popMovie();
@@ -62,6 +66,14 @@ app.get('/movies', async (req, res) => {
     res.render('movies', {movieTitle, release, overview});
 })
 
+app.post('/movies', async(req, res) => {
+    let film = req.body.movieG;
+    let response = await popMovie;
+    let overview = data.results[i].overview;
+    res.render('movies', {movieTitle, release, overview});
+})
+
 app.listen(3000, () => {
     console.log('server is running on port 3000');
 })
+
